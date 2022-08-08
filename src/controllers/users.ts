@@ -26,8 +26,8 @@ export const createUser = (req: Request, res: Response, next: NextFunction) => {
     .catch(next);
 };
 
-export const updateUser = (req: any, res: Response, next: NextFunction) => {
-  User.findByIdAndUpdate(req.user._id, req.body, { new: true, runValidators: true, upsert: false })
+export const updateUser = (req: Request, res: Response, next: NextFunction) => {
+  User.findByIdAndUpdate(req.user?._id, req.body, { new: true, runValidators: true, upsert: false })
     .then((user) => {
       if (user === null) {
         throw new NotFoundError(NOT_FOUND_USER_ERROR_TEXT);
@@ -37,9 +37,9 @@ export const updateUser = (req: any, res: Response, next: NextFunction) => {
     .catch(next);
 };
 
-export const updateAvatar = (req: any, res: Response, next: NextFunction) => {
+export const updateAvatar = (req: Request, res: Response, next: NextFunction) => {
   User.findByIdAndUpdate(
-    req.user._id,
+    req.user?._id,
     { avatar: req.body.avatar },
     { new: true, runValidators: true, upsert: false },
   )

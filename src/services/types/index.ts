@@ -9,7 +9,13 @@ export type TCardType = {
 }
 
 export type TUserType = {
-  name: string;
-  about: string;
-  avatar: string;
+  name?: string;
+  about?: string;
+  avatar?: string;
+  _id: string;
+}
+
+export interface IError extends Error {
+  statusCode: number;
+  code?: number;
 }

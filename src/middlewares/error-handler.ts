@@ -1,11 +1,12 @@
 import ValidationError from '../errors/validation-error';
 import ConflictingError from '../errors/conflicting-error';
 import { COMMON_ERROR_TEXT } from '../consts';
-import { NextFunction } from 'express';
+import { NextFunction, Request, Response } from 'express';
+import { IError } from 'services/types';
 
 const COMMON_ERROR_CODE = 500;
 
-const getValidError = (err: any) => {
+const getValidError = (err: IError) => {
   if (err.statusCode) {
     return err;
   }
@@ -21,7 +22,7 @@ const getValidError = (err: any) => {
   return { ...err, statusCode: COMMON_ERROR_CODE };
 };
 
-const errorHandler = (err: any, req: Request, res: any, next: NextFunction) => {
+const errorHandler = (err: IError, req: Request, res: Response, next: NextFunction) => {
   const { statusCode, message } = getValidError(err);
 
   res
