@@ -1,5 +1,5 @@
-import mongoose from "mongoose";
-import { TCardType } from "services/types";
+import mongoose from 'mongoose';
+import { TCardType } from '../services/types';
 
 const cardSchema = new mongoose.Schema<TCardType>({
   name: {

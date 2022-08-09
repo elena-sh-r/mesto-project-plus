@@ -1,5 +1,5 @@
-import mongoose from "mongoose";
-import { TUserType } from "services/types";
+import mongoose from 'mongoose';
+import { TUserType } from '../services/types';
 
 const userSchema = new mongoose.Schema<TUserType>({
   name: {

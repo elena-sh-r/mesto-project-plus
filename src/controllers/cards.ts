@@ -10,10 +10,10 @@ export const getCards = (req: Request, res: Response, next: NextFunction) => {
 };
 
 export const deleteCard = (req: Request, res: Response, next: NextFunction) => {
-  Card.deleteOne({_id: req.params.cardId})
+  Card.deleteOne({ _id: req.params.cardId })
     .orFail(new NotFoundError(NOT_FOUND_CARD_ERROR_TEXT))
     .then((data) => {
-      res.send({ data: data });
+      res.send({ data });
     })
     .catch(next);
 };
@@ -32,9 +32,9 @@ export const likeCard = (req: Request, res: Response, next: NextFunction) => {
     { $addToSet: { likes: req.user?._id } },
     { new: true },
   )
-  .orFail(new NotFoundError(NOT_FOUND_CARD_ERROR_TEXT))
-  .then((newCard) => res.send({ data: newCard }))
-  .catch(next);
+    .orFail(new NotFoundError(NOT_FOUND_CARD_ERROR_TEXT))
+    .then((newCard) => res.send({ data: newCard }))
+    .catch(next);
 };
 
 export const dislikeCard = (req: Request, res: Response, next: NextFunction) => {
@@ -43,7 +43,7 @@ export const dislikeCard = (req: Request, res: Response, next: NextFunction) => 
     { $pull: { likes: req.user?._id } },
     { new: true },
   )
-  .orFail(new NotFoundError(NOT_FOUND_CARD_ERROR_TEXT))
-  .then((newCard) => res.send({ data: newCard }))
-  .catch(next);
-}
+    .orFail(new NotFoundError(NOT_FOUND_CARD_ERROR_TEXT))
+    .then((newCard) => res.send({ data: newCard }))
+    .catch(next);
+};

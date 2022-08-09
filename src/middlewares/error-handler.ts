@@ -1,8 +1,8 @@
+import { NextFunction, Request, Response } from 'express';
+import { IError } from '../services/types';
 import ValidationError from '../errors/validation-error';
 import ConflictingError from '../errors/conflicting-error';
 import { COMMON_ERROR_TEXT } from '../consts';
-import { NextFunction, Request, Response } from 'express';
-import { IError } from 'services/types';
 
 const COMMON_ERROR_CODE = 500;
 
