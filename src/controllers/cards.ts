@@ -1,6 +1,7 @@
 import { Request, Response, NextFunction } from 'express';
 import Card from '../models/card';
 import NotFoundError from '../errors/not-found-error';
+import ForbiddenError from '../errors/forbidden-error';
 import { NOT_FOUND_CARD_ERROR_TEXT } from '../consts';
 
 export const getCards = (req: Request, res: Response, next: NextFunction) => {
@@ -10,10 +11,15 @@ export const getCards = (req: Request, res: Response, next: NextFunction) => {
 };
 
 export const deleteCard = (req: Request, res: Response, next: NextFunction) => {
-  Card.deleteOne({ _id: req.params.cardId })
+  Card.findById(req.params.cardId)
     .orFail(new NotFoundError(NOT_FOUND_CARD_ERROR_TEXT))
-    .then((data) => {
-      res.send({ data });
+    .then((card) => {
+      if (card.owner.toString() === req.user?._id) {
+        Card.remove(card)
+          .then((ownerCard) => res.send({ data: ownerCard }));
+      } else {
+        throw new ForbiddenError('Попытка удалить чужую карточку');
+      }
     })
     .catch(next);
 };

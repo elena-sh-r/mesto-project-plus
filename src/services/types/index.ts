@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+import mongoose from 'mongoose';
 
 export type TCardType = {
   name: string;
@@ -9,6 +9,8 @@ export type TCardType = {
 }
 
 export type TUserType = {
+  email: string;
+  password: string;
   name?: string;
   about?: string;
   avatar?: string;
