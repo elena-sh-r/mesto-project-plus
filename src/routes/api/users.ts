@@ -1,22 +1,20 @@
 import { celebrate, Joi } from 'celebrate';
-import validator from 'validator';
 import { Router } from 'express';
+import { urlValidationMethod } from '../../utils/validation';
 import {
   getUser, getUsers, getMe, updateUser, updateAvatar,
 } from '../../controllers/users';
 
-const urlValidationMethod = (value: string) => {
-  const result = validator.isURL(value);
-  if (result) {
-    return value;
-  }
-  throw new Error('URL validation err');
-};
-
 const router = Router();
 
 router.get('/', getUsers);
-router.get('/:userId', getUser);
+
+router.get('/:userId', celebrate({
+  params: Joi.object().keys({
+    userId: Joi.string().hex().length(24),
+  }).unknown(true),
+}), getUser);
+
 router.get('/me', getMe);
 
 router.patch('/me', celebrate({

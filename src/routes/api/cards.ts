@@ -1,17 +1,9 @@
 import { celebrate, Joi } from 'celebrate';
-import validator from 'validator';
 import { Router } from 'express';
 import {
   getCards, createCard, deleteCard, likeCard, dislikeCard,
 } from '../../controllers/cards';
-
-const urlValidationMethod = (value: string) => {
-  const result = validator.isURL(value);
-  if (result) {
-    return value;
-  }
-  throw new Error('URL validation err');
-};
+import { urlValidationMethod } from '../../utils/validation';
 
 const router = Router();
 
@@ -26,7 +18,7 @@ router.post('/', celebrate({
 
 router.delete('/:cardId', celebrate({
   params: Joi.object().keys({
-    id: Joi.string().hex().length(24),
+    cardId: Joi.string().hex().length(24),
   }).unknown(true),
 }), deleteCard);
 

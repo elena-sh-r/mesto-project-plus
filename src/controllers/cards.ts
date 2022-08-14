@@ -16,7 +16,8 @@ export const deleteCard = (req: Request, res: Response, next: NextFunction) => {
     .then((card) => {
       if (card.owner.toString() === req.user?._id) {
         Card.remove(card)
-          .then((ownerCard) => res.send({ data: ownerCard }));
+          .then((ownerCard) => res.send({ data: ownerCard }))
+          .catch(next);
       } else {
         throw new ForbiddenError('Попытка удалить чужую карточку');
       }

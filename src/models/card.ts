@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+import { isValidUrl } from '../utils/validation';
 import { TCardType } from '../services/types';
 
 const cardSchema = new mongoose.Schema<TCardType>({
@@ -12,7 +13,7 @@ const cardSchema = new mongoose.Schema<TCardType>({
     type: String,
     required: true,
     validate: {
-      validator: (v: string) => /^https?:\/\/(www\.)?[a-zA-Z0-9-]*\.[a-zA-Z0-9]*\b([a-zA-Z0-9-._~:/?#[\]@!$&'()*+,;=]*)#?/.test(v),
+      validator: (v: string) => isValidUrl(v),
       message: 'Неправильный формат адреса',
     },
   },

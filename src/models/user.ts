@@ -3,6 +3,7 @@ import isEmail from 'validator/lib/isEmail';
 import bcrypt from 'bcryptjs';
 import UnauthorizedError from '../errors/unauthorized-error';
 import { TUserType } from '../services/types';
+import { isValidUrl } from '../utils/validation';
 
 type UserModel = Model<TUserType> & {
   // eslint-disable-next-line no-unused-vars
@@ -43,7 +44,7 @@ const userSchema = new mongoose.Schema<TUserType, UserModel>({
     type: String,
     required: false,
     validate: {
-      validator: (v: string) => /^https?:\/\/(www\.)?[a-zA-Z0-9-]*\.[a-zA-Z0-9]*\b([a-zA-Z0-9-._~:/?#[\]@!$&'()*+,;=]*)#?/.test(v),
+      validator: (v: string) => isValidUrl(v),
       message: 'Неправильный формат адреса',
     },
     default: 'https://pictures.s3.yandex.net/resources/jacques-cousteau_1604399756.png',
