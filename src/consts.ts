@@ -2,3 +2,4 @@ export const NOT_FOUND_ERROR_TEXT = 'Запрашиваемый ресурс н�
 export const COMMON_ERROR_TEXT = 'На сервере произошла ошибка';
 export const NOT_FOUND_CARD_ERROR_TEXT = 'Запрашиваемая карточка не найдена';
 export const NOT_FOUND_USER_ERROR_TEXT = 'Запрашиваемый пользователь не найден';
+export const UNAUTHORIZED_ERROR_TEXT = 'Необходима авторизация!';

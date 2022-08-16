@@ -15,7 +15,7 @@ const getValidError = (err: IError) => {
     return new ValidationError(err.message);
   }
 
-  if (err.name === 'MongoError' && err.code === 11000) {
+  if ((err.name === 'MongoError' || err.name === 'MongoServerError') && err.code === 11000) {
     return new ConflictingError(err.message);
   }
 
